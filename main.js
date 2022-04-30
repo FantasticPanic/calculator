@@ -42,7 +42,8 @@ const currentOperand = document.querySelector('[data-current-op]')
 
 const calculator = new Calculator(previousOperand, currentOperand);
 
-numberButtons .forEach(button = >{button.addEventListener('click',() =>
+numberButtons.forEach(button =>{ 
+	button.addEventListener('click',() =>
 	{
 		calculator.appendNumber(button.innerText) 
 		calculator.updateDisplay()
