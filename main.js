@@ -12,6 +12,7 @@ class Calculator{
 	}
 
 	delete(){
+		this.currentOperand = this.currentOperand.toString().slice(0,-1)
 
 	}
 
@@ -56,10 +57,32 @@ class Calculator{
 		this.previousOperand = ''
 	}
 
-	updateDisplay(){
-		this.currentOperandText.innerText = this.currentOperand
-		this.previousOperandText.innerText = this.previousOperand
+	getDisplayNumber(number){
+		const stringNumber = number.toString()
+		const integerDigits = parseFloat(stringNumber.split('.')[0])
+		const decimalDigits = stringNumber.split('.')[1]
+		let integerDisplay
+		if(isNaN(integerDigits)){
+			integerDisplay = ''
+			}else{
+				integerDisplay = integerDigits.toLocaleString('en', {maximumFractionDigits: 0})
+			}
+			if(decimalDigits != null) {
+				return`${integerDisplay}.${decimalDigits}`
+			} else{
+				return integerDisplay
+			}
+	}
 
+	updateDisplay(){
+		this.currentOperandText.innerText = this.getDisplayNumber(this.currentOperand)
+		if(this.operation != null){
+			
+			this.previousOperandText.innerText = `${this.getDisplayNumber(
+				this.previousOperand)} ${this.operation}`
+		} else{
+			this.previousOperandText.innerText = "";
+		}
 	}
 
 }
